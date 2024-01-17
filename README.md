@@ -1,1 +1,1 @@
-This is the beginning of Python
+Hello world
