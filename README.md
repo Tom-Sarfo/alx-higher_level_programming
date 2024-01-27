@@ -1,1 +1,1 @@
-Hello world
+Learning Python the right way
