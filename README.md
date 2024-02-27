@@ -1,1 +1,1 @@
-Learning Python the right way
+Higher level programming with python
