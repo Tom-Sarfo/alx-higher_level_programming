@@ -1,83 +1,75 @@
 #!/usr/bin/python3
-"""Defines a square class."""
+
+"""This module contains a class Square that extends the Rectngle class"""
+
+
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Represent a square."""
+    """This class is defined for the Square clss that extends
+       the Rectangle class.
+       Atrributes:
+           size (int): this represents the size attribute of the Square.
+           x (int): this represent the x-cordinate of the Square object.
+           y (int): this represents the y-cordinate of the Square object.
+           id (int): this reperents the id of the Square object.
+    """
 
     def __init__(self, size, x=0, y=0, id=None):
-        """Initialize a new Square.
-
-        Args:
-            size (int): The size of the new Square.
-            x (int): The x coordinate of the new Square.
-            y (int): The y coordinate of the new Square.
-            id (int): The identity of the new Square.
-        """
-        super().__init__(size, size, x, y, id)
-
-    @property
-    def size(self):
-        """Get/set the size of the Square."""
-        return self.width
-
-    @size.setter
-    def size(self, value):
-        self.width = value
-        self.height = value
-
-    def update(self, *args, **kwargs):
-        """Update the Square.
-
-        Args:
-            *args (ints): New attribute values.
-                - 1st argument represents id attribute
-                - 2nd argument represents size attribute
-                - 3rd argument represents x attribute
-                - 4th argument represents y attribute
-            **kwargs (dict): New key/value pairs of attributes.
-        """
-        if args and len(args) != 0:
-            a = 0
-            for arg in args:
-                if a == 0:
-                    if arg is None:
-                        self.__init__(self.size, self.x, self.y)
-                    else:
-                        self.id = arg
-                elif a == 1:
-                    self.size = arg
-                elif a == 2:
-                    self.x = arg
-                elif a == 3:
-                    self.y = arg
-                a += 1
-
-        elif kwargs and len(kwargs) != 0:
-            for k, v in kwargs.items():
-                if k == "id":
-                    if v is None:
-                        self.__init__(self.size, self.x, self.y)
-                    else:
-                        self.id = v
-                elif k == "size":
-                    self.size = v
-                elif k == "x":
-                    self.x = v
-                elif k == "y":
-                    self.y = v
-
-    def to_dictionary(self):
-        """Return the dictionary representation of the Square."""
-        return {
-            "id": self.id,
-            "size": self.width,
-            "x": self.x,
-            "y": self.y
-        }
+        super().__init__(width=size, height=size, x=x, y=y, id=id)
+        self.__size = size
 
     def __str__(self):
-        """Return the print() and str() representation of a Square."""
-        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
-                                                 self.width)
+        """square repr"""
+        idx = self.id
+        x_c = self.x
+        y_c = self.y
+        rep = "[Square] ({}) {}/{} - {}".format(idx, x_c, y_c, self.__size)
+        return rep
+
+    # @Rectangle.width.getter
+    @property
+    def size(self):
+        """size getter property"""
+        return self.__width
+
+    @Rectangle.width.setter
+    # @size.setter
+    def size(self, value):
+        """size setter property"""
+        self.__width = value
+        # Rectangle.width.fset(self, value)
+        # self.height = value
+
+    def update(self, *args, **kwargs):
+        """update method"""
+        if args:
+            if len(args) >= 1:
+                self.id = args[0]
+            if len(args) >= 2:
+                self.__size = args[1]
+            if len(args) >= 3:
+                self.x = args[2]
+            if len(args) >= 4:
+                self.y = args[3]
+        else:
+            if 'id' in kwargs:
+                self.id = kwargs['id']
+            if 'size' in kwargs:
+                self.__size = kwargs['size']
+            if 'x' in kwargs:
+                self.x = kwargs['x']
+            if 'y' in kwargs:
+                self.y = kwargs['y']
+
+    def to_dictionary(self):
+        """object dictionary"""
+        sq_dict = {
+            'id': self.id,
+            'size': self.__size,
+            'x': self.x,
+            'y': self.y
+        }
+
+        return sq_dict
